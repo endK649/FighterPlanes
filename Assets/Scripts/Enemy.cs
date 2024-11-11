@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
 
     public GameObject explosion;
+    public GameObject coin;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,15 @@ public class Enemy : MonoBehaviour
             //I am shot!
             GameObject.Find("GameManager").GetComponent<GameManager>().EarnScore(5);
             Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(whatIHit.gameObject);
+            Destroy(this.gameObject);
+        }
+
+
+        if (whatIHit.tag == "Coin")
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().EarnCoin(1);
+            Instantiate(coin, transform.position, Quaternion.identity);
             Destroy(whatIHit.gameObject);
             Destroy(this.gameObject);
         }

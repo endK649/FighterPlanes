@@ -10,23 +10,31 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject enemyOne;
     public GameObject cloud;
+    public GameObject coinGame;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
+    public TextMeshProUGUI coinText;
 
     private int score;
     private int lives;
+    private int coin;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         Instantiate(player, transform.position, Quaternion.identity);
         InvokeRepeating("CreateEnemyOne", 1f, 3f);
+        InvokeRepeating("CreateCoin", 2f, 4f);
         CreateSky();
         score = 0;
         scoreText.text = "Score: " + score;
         lives = 3;
         livesText.text = "Lives: " + lives;
+        coin = 0;
+        coinText.text = "Coin: " + coin;
     }
 
     // Update is called once per frame
@@ -38,6 +46,10 @@ public class GameManager : MonoBehaviour
     void CreateEnemyOne()
     {
         Instantiate(enemyOne, new Vector3(Random.Range(-9f, 9f), 7.5f, 0), Quaternion.Euler(0, 0, 180));
+    }
+    void CreateCoin()
+    {
+        Instantiate(coinGame, new Vector3(Random.Range(-9f, 9f), 7.5f, 0), Quaternion.Euler(0, 0, 180));
     }
 
     void CreateSky()
@@ -58,5 +70,11 @@ public class GameManager : MonoBehaviour
     {   lives = lives + newLives;
         livesText.text = "Lives: " + lives;
     }
+    public void EarnCoin(int newCoin)
+    {
+        coin = coin + newCoin;
+        coinText.text = "Coin: " + coin;
+    }
 
 }
+
